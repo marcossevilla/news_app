@@ -6,11 +6,17 @@ import 'package:news_app/viewmodels/news_article_viewmodel.dart';
 class NewsArticleListViewModel extends ChangeNotifier {
   List<NewsArticleViewModel> articles = List<NewsArticleViewModel>();
 
-  void populateTopHeadlines() async {
+  NewsArticleListViewModel() {
+    _populateTopHeadlines();
+  }
+
+  void _populateTopHeadlines() async {
     List<NewsArticle> newsArticles = await WebService().fetchTopHeadlines();
+
     this.articles = newsArticles
         .map((article) => NewsArticleViewModel(article: article))
         .toList();
+
     notifyListeners();
   }
 }
